@@ -1,15 +1,15 @@
 Trampoline
 ==========
 
-Trampoline is a set of scripts that generates ready-to-use data files for
-general transcript-wide researches. It defines a subset of NCBI RefSeq
-transcripts, called "non-redundant RefSeq", by filtering any shorter
-transcripts overlapped to longer one in the genome coordinate space.
-Subsequent analyses become much easier with the nrRefSeq set.
-Various structured databases and bed files provided here enables you to
-write truly affordable disposable transcripts for explorative analyses.
-Indeed, this approach is not suitable when you need isoform-aware
-processing.
+Trampoline is a set of scripts that generates ready-to-use data
+files for general transcript-wide researches. It defines a subset of
+NCBI RefSeq transcripts, called "non-redundant RefSeq", by filtering
+out any shorter transcripts overlapped to longer one in the genome
+coordinate space.  Subsequent analyses become much easier with the
+nrRefSeq set. Various structured databases and bed files provided here
+enables you to write disposable transcripts with affordable efforts for
+explorative analyses. Indeed, this approach is not suitable when you
+need isoform-aware processing.
 
 
 Author
