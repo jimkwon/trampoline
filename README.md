@@ -16,7 +16,7 @@ Author
 ------
 
 Hyeshik Chang <hyeshik@snu.ac.kr>  
-Center for RNA Research, Institute of Basic Science, Seoul, South Korea.
+Center for RNA Research, Institute for Basic Science, Seoul, South Korea.
 
 
 What're included in the Trampoline dataset?
