@@ -36,22 +36,14 @@ TARGETS.extend((
     expand('{genome}/nrRefSeq-genome.bed12.gz', genome=GENOMES)
 ))
 
-rule download_rfam_fasta:
-    output: '{genome}/downloaded/Rfam.fasta.gz'
-    shell: 'wget -O {output} {RFAM_FASTA_URL}'
-
-rule download_rfam_full:
-    output: '{genome}/downloaded/Rfam.full.gz'
-    shell: 'wget -O {output} {RFAM_FULL_URL}'
-
 rule download_rDNA:
-    output: '{genome}/downloaded/rDNA.fa'
+    output: 'downloaded/{genome}/rDNA.fa'
     run:
         url = RDNA_GENBANK_URLS[GENOME2SPECIES[wildcards.genome]]
         shell('wget -O "{output}" "{url}"')
 
 rule rfam_contaminants_seq_names:
-    input: '{genome}/downloaded/Rfam.fasta.gz'
+    input: 'downloaded/Rfam.fasta.gz'
     output: '{genome}/tmp/Rfam-contaminants-names'
     run:
         species = GENOME2SPECIES[wildcards.genome]
@@ -60,9 +52,9 @@ rule rfam_contaminants_seq_names:
         shell("zgrep '^>.*;Metazoa_SRP;.*{species}' {input} | sed -e 's,^>\([^ ]*\).*,\\1,g' >> {output}")
 
 rule make_contaminants_fasta:
-    input: rDNA_fasta='{genome}/downloaded/rDNA.fa', \
-           rfam_ids='{genome}/tmp/Rfam-contaminants-names', \
-           rfam_fasta='{genome}/downloaded/Rfam.fasta.gz'
+    input: rDNA_fasta='downloaded/{genome}/rDNA.fa', \
+           rfam_ids='tmp/{genome}/Rfam-contaminants-names', \
+           rfam_fasta='downloaded/Rfam.fasta.gz'
     output: '{genome}/contaminants.fa'
     run:
         shell('faSomeRecords {input.rfam_fasta} {input.rfam_ids} {output}.tmp && \
@@ -73,7 +65,7 @@ rule make_contaminants_fasta:
 rule build_contaminants_gsnap_index:
     input: '{genome}/contaminants.fa'
     output: '{genome}/contaminants/contaminants.genomecomp'
-    shell: 'gmap_build -T {wildcards.genome}/downloaded -D {wildcards.genome} -d contaminants \
+    shell: 'gmap_build -T tmp/{wildcards.genome} -D {wildcards.genome} -d contaminants \
                 -k 12 -b 12 -q 1 {input}'
 
 rule build_contaminants_star_index:
@@ -107,25 +99,25 @@ rule build_gsnap_genome_index:
                 -d genome -k 12 -b 12 -q 1 {input}'
 
 rule download_refgene:
-    output: '{genome}/downloaded/refGene.txt.gz'
+    output: 'downloaded/{genome}/refGene.txt.gz'
     run:
         url = REFGENE_URL.format(genome=wildcards.genome)
         shell('wget -O {output} {url}')
 
 rule download_refflat:
-    output: '{genome}/downloaded/refFlat.txt.gz'
+    output: 'downloaded/{genome}/refFlat.txt.gz'
     run:
         url = REFFLAT_URL.format(genome=wildcards.genome)
         shell('wget -O {output} {url}')
 
 rule download_reflink:
-    output: '{genome}/downloaded/refLink.txt.gz'
+    output: 'downloaded/{genome}/refLink.txt.gz'
     run:
         url = REFLINK_URL.format(genome=wildcards.genome)
         shell('wget -O {output} {url}')
 
 rule download_knowngene:
-    output: '{genome}/downloaded/knownGene.txt.gz'
+    output: 'downloaded/{genome}/knownGene.txt.gz'
     run:
         if wildcards.genome not in NO_KNOWNGENE_AVAILABLE:
             url = KNOWNGENE_URL.format(genome=wildcards.genome)
@@ -135,19 +127,19 @@ rule download_knowngene:
             gzip.open(output[0], 'w')
 
 rule download_refseq_fasta:
-    output: '{genome}/downloaded/refMrna.fa.gz'
+    output: 'downloaded/{genome}/refMrna.fa.gz'
     run:
         url = REFMRNA_URL.format(genome=wildcards.genome)
         shell('wget -O {output} {url}')
 
 rule download_refseqali:
-    output: '{genome}/downloaded/refSeqAli.psl'
+    output: 'downloaded/{genome}/refSeqAli.psl'
     run:
         url = REFSEQALI_URL.format(genome=wildcards.genome)
         shell('wget -O - {url} | gzip -d - | sed -n -e "s/^[0-9]*\t//p" > {output}')
 
 rule build_refseqali_db:
-    input: alignment='{genome}/downloaded/refSeqAli.psl', \
+    input: alignment='downloaded/{genome}/refSeqAli.psl', \
            nrlist='{genome}/nrRefSeq.list', \
            nrbed='{genome}/nrRefSeq-genome.bed.gz'
     output: '{genome}/nrRefSeq-alignment.db'
@@ -156,7 +148,7 @@ rule build_refseqali_db:
                     {input.alignment} {output}')
 
 rule filter_refseq_fasta:
-    input: fain='{genome}/downloaded/refMrna.fa.gz', \
+    input: fain='downloaded/{genome}/refMrna.fa.gz', \
            nrlist='{genome}/nrRefSeq.list'
     output: faout='{genome}/nrRefSeq.fa', faidx='{genome}/nrRefSeq.fa.fai'
     run:
@@ -168,16 +160,16 @@ rule filter_refseq_fasta:
             shell('samtools faidx {output.faout}')
 
 rule build_gsnap_splice_index:
-    input: refgene='{genome}/downloaded/refGene.txt.gz', \
-           knowngene='{genome}/downloaded/knownGene.txt.gz', \
+    input: refgene='downloaded/{genome}/refGene.txt.gz', \
+           knowngene='downloaded/{genome}/knownGene.txt.gz', \
            gsnapidx='{genome}/genome/genome.genomecomp'
     output: '{genome}/genome/genome.maps/genome.splicesites.iit'
     shell: '(zcat {input.refgene} | psl_splicesites -s 1; \
              zcat {input.knowngene} | psl_splicesites) | iit_store -o {output}'
 
 rule build_nonredundant_refseq_database:
-    input: refflat='{genome}/downloaded/refFlat.txt.gz', \
-           reflink='{genome}/downloaded/refLink.txt.gz'
+    input: refflat='downloaded/{genome}/refFlat.txt.gz', \
+           reflink='downloaded/{genome}/refLink.txt.gz'
     output: nrdb='{genome}/nrRefSeq.db', nrlist='{genome}/nrRefSeq.list'
     shell: 'zcat {input.refflat} | sort -t "\t" -k3,4 -k5,6n | \
             python tools/build-nonredundant-refseq.py {input.reflink} {output.nrdb} \
@@ -189,36 +181,25 @@ rule make_nonredundant_refseq_genome_bedanno:
     shell: 'python tools/nrrefseq2bed.py {input} | gzip -c - > {output}'
 
 rule make_nonredundant_refseq_genome_bed12anno:
-    input: refgene='{genome}/downloaded/refGene.txt.gz', \
+    input: refgene='downloaded/{genome}/refGene.txt.gz', \
            nrreflist='{genome}/nrRefSeq.list'
     output: '{genome}/nrRefSeq-genome.bed12.gz'
     shell: 'python tools/nrrefseq2bed12.py {input.refgene} {input.nrreflist} /dev/stdout | \
                  gzip -c - > {output}'
 
-rule prepare_rfam_catalog:
-    input: rfamfasta='{genome}/downloaded/Rfam.fasta.gz', \
-           rfamfull='{genome}/downloaded/Rfam.full.gz', \
-           twobit='{genome}/genome.2bit'
-    output: '{genome}/cat.rfam.bed.gz'
-    run:
-        species = GENOME2SPECIES[wildcards.genome]
-        with TemporaryDirectory() as tmpdir:
-            shell('sh tools/build-rfam-index.sh {tmpdir} {input.rfamfasta} ' \
-                  '{input.rfamfull} "{species}" {input.twobit} {output}')
-
 rule prepare_refseq_catalog:
-    input: '{genome}/downloaded/refGene.txt.gz'
+    input: 'downloaded/{genome}/refGene.txt.gz'
     output: '{genome}/cat.refseq.bed.gz'
     shell: 'python tools/build-refseq-index.py `dirname {output}` {input}'
 
 rule download_miRBase:
-    output: '{genome}/downloaded/mirbase.gff3'
+    output: 'downloaded/{genome}/mirbase.gff3'
     run:
         URL = MIRBASE_URL.format(species=GENOME2SPECIES_SHORT[wildcards.genome])
         shell("wget -O - {URL} | sed -e 's,^\\([0-9]\\),chr\\1,g' > {output}")
 
 rule prepare_mirbase_catalog:
-    input: '{genome}/downloaded/mirbase.gff3'
+    input: 'downloaded/{genome}/mirbase.gff3'
     output: '{genome}/cat.mirbase.bed.gz'
     run:
         import urllib, re, gzip
@@ -251,7 +232,7 @@ rule compile_full_catalog:
                gzip -c - > {output}')
 
 rule convert_psl_to_gff3:
-    input: '{genome}/downloaded/refSeqAli.psl'
+    input: 'downloaded/{genome}/refSeqAli.psl'
     output: '{genome}/genome.gff3'
     shell: 'tools/blat2gff.pl -match transcript < {input} > {output}'
 
@@ -270,7 +251,7 @@ rule make_genome_size:
     shell: 'faSize -detailed -tab {input} > {output}'
 
 rule make_transcript_ends:
-    input: refflat='{genome}/downloaded/refFlat.txt.gz', size='{genome}/genome.size'
+    input: refflat='downloaded/{genome}/refFlat.txt.gz', size='{genome}/genome.size'
     output: '{genome}/txEnds.bed.gz'
     shell: "zcat {input.refflat} | \
             awk -F'	' '{{print $3, $5, $6, $2, 0, $4; }}' | \

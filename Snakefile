@@ -60,8 +60,6 @@ CHROMOSOMES = { # for downloading data which are broken into per-chromosome file
 #
 # URLs that are not migrated to new layout yet.
 #
-RFAM_FASTA_URL = 'ftp://ftp.sanger.ac.uk/pub/databases/Rfam/CURRENT/Rfam.fasta.gz'
-RFAM_FULL_URL = 'ftp://ftp.sanger.ac.uk/pub/databases/Rfam/CURRENT/Rfam.fasta.gz'
 GENOME_2BIT_URL = 'http://hgdownload.soe.ucsc.edu/goldenPath/{genome}/bigZips/{genome}.2bit'
 REFGENE_URL = 'http://hgdownload.soe.ucsc.edu/goldenPath/{genome}/database/refGene.txt.gz'
 REFFLAT_URL = 'http://hgdownload.soe.ucsc.edu/goldenPath/{genome}/database/refFlat.txt.gz'
@@ -93,6 +91,7 @@ TARGETS = []
 include: 'workflows/legacy.py'
 include: 'workflows/RepeatMasker.py'
 include: 'workflows/tRNAdb.py'
+include: 'workflows/Rfam.py'
 
 rule all:
     input: (lambda _: TARGETS)
