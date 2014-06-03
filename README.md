@@ -46,7 +46,7 @@ What're included in the Trampoline dataset?
   - Transcript end positions
   - nrRefSeq transcripts in BED6 (broken into exons and introns) and BED12 (exon groups).
   - DROSHA and DICER cleavage positions
-* Transcript catalogue database
+* Transcript catalogue databases
   - Simple list of nrRefSeq in a text file
   - Transcript sequences in FASTA format
   - Transcript knowledge database in Python 2.x shelve format
@@ -63,4 +63,5 @@ Which genomes are supported?
   - UCSC mm10
 * Zebrafish
   - UCSC danRer7
-
+* Fruitfly (*D. melanogaster*)
+  - UCSC dm3
