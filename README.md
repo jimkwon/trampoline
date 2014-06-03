@@ -2,14 +2,7 @@ Trampoline
 ==========
 
 Trampoline is a set of scripts that generates ready-to-use data
-files for general transcript-wide researches. It defines a subset of
-NCBI RefSeq transcripts, called "non-redundant RefSeq", by filtering
-out any shorter transcripts overlapped to longer one in the genome
-coordinate space.  Subsequent analyses become much easier with the
-nrRefSeq set. Various structured databases and bed files provided here
-enables you to write disposable transcripts with affordable efforts for
-explorative analyses. Indeed, this approach is not suitable when you
-need isoform-aware processing.
+files for general transcript-wide researches.
 
 
 Author
@@ -19,8 +12,36 @@ Hyeshik Chang <hyeshik@snu.ac.kr>
 Center for RNA Research, Institute for Basic Science, Seoul, South Korea.
 
 
-What're included in the Trampoline dataset?
--------------------------------------------
+Objectives
+----------
+
+What is a Trampoline dataset? | What isn't?
+----------------------------- | -----------
+Single consistent organization of data in standard formats, regardless of genome (or species). | Species-specific layouts, formats, or terms
+Ready-to-use bunches for usual cases in transcriptome analysis | well-organized canonical database that covers all use cases
+Simple gene-level analyses | Isoform-level analyses
+Rough estimation of expression levels | Perfect resolution of multimapped/unmappable reads
+Analysis of gene regulations in known genes | Discovery of novel transcripts or isoforms
+Gene structure and terms of multi-cellular eukaryotes | Those of monocellular organism or prokaryotes
+Simple text or portable file-based data formats | RDBMS
+Requires minimal code for use | Optimized for speed and system resource
+Batch processing | Online processing or interactive access
+
+
+Non-redundant RefSeq subset
+---------------------------
+
+It defines a subset of NCBI RefSeq transcripts, called "non-redundant
+RefSeq", by filtering out any shorter transcripts overlapped to longer
+one in the genome coordinate space. Subsequent analyses become much
+easier with the nrRefSeq set. Various structured databases and bed files
+provided here enables you to write disposable transcripts with affordable
+efforts for explorative analyses. Indeed, this approach is not suitable
+when you need isoform-aware processing.
+
+
+List of components included in the Trampoline dataset
+-----------------------------------------------------
 
 * Genome sequences and indices
   - Single uncompressed FASTA format
@@ -54,8 +75,8 @@ What're included in the Trampoline dataset?
     from genome to transcriptome coordinate.
 
 
-Which genomes are supported?
-----------------------------
+Supported genomes
+-----------------
 
 * Human
   - UCSC hg19
@@ -63,5 +84,6 @@ Which genomes are supported?
   - UCSC mm10
 * Zebrafish
   - UCSC danRer7
-* Fruitfly (*D. melanogaster*)
+* Fruitfly *(D. melanogaster)*
   - UCSC dm3
+
