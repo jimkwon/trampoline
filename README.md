@@ -17,27 +17,27 @@ Objectives
 
 What is a Trampoline dataset? | What isn't?
 ----------------------------- | -----------
-Single consistent organization of data in standard formats, regardless of genome (or species). | Species-specific layouts, formats, or terms
-Ready-to-use bunches for usual cases in transcriptome analysis | well-organized canonical database that covers all use cases
+Single consistent organization of data in standard formats, regardless of genome (or species) | Species-specific layouts, formats, or terms
+Ready-to-use bunches for usual cases in transcriptome analysis | Well-organized database that covers all use cases
 Simple gene-level analyses | Isoform-level analyses
 Rough estimation of expression levels | Perfect resolution of multimapped/unmappable reads
 Analysis of gene regulations in known genes | Discovery of novel transcripts or isoforms
 Gene structure and terms of multi-cellular eukaryotes | Those of monocellular organism or prokaryotes
 Simple text or portable file-based data formats | RDBMS
 Requires minimal code for use | Optimized for speed and system resource
-Batch processing | Online processing or interactive access
+Batch processing | Online or real-time processing
 
 
 Non-redundant RefSeq subset
 ---------------------------
 
-It defines a subset of NCBI RefSeq transcripts, called "non-redundant
-RefSeq", by filtering out any shorter transcripts overlapped to longer
-one in the genome coordinate space. Subsequent analyses become much
-easier with the nrRefSeq set. Various structured databases and bed files
-provided here enables you to write disposable transcripts with affordable
-efforts for explorative analyses. Indeed, this approach is not suitable
-when you need isoform-aware processing.
+Transcriptome uses a subset of NCBI RefSeq transcripts, called
+"non-redundant RefSeq", by filtering out any shorter transcripts
+overlapped to longer one in the genome coordinate space. Subsequent
+analyses become much easier with the nrRefSeq set. Various structured
+databases and bed files provided here enables you to write disposable
+transcripts with affordable efforts for explorative analyses. Indeed,
+this approach is not suitable when you need isoform-aware processing.
 
 
 List of components included in the Trampoline dataset
