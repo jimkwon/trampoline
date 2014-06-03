@@ -5,7 +5,7 @@ Trampoline is a set of scripts that generates ready-to-use data
 files for general transcript-wide researches.
 
 
-![Logo image](https://raw.githubusercontent.com/hyeshik/trampoline/master/doc/trampoline.png)
+![Logo image](https://raw.githubusercontent.com/hyeshik/trampoline/master/doc/trampoline.png)   
 *Modified from [xkcd: Python](http://xkcd.com/353/) by Randall Munroe*
 
 
