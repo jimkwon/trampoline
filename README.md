@@ -80,6 +80,7 @@ Supported genomes
 
 * Human
   - UCSC hg19
+  - UCSC hg38
 * Mouse
   - UCSC mm10
 * Zebrafish

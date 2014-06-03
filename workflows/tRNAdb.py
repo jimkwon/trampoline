@@ -57,8 +57,9 @@ for genome in GENOMES:
             input: trna='downloaded/gtRNAdb-all.fa.gz', \
                    twobit='{genome}/genome.2bit'.format(genome=genome)
             output: '{genome}/cat.trnas.bed.gz'.format(genome=genome)
+            params: genome=genome
             run:
-                species = GENOME2SPECIES[genome]
+                species = GENOME2SPECIES[params.genome]
                 with TemporaryDirectory() as tmpdir:
                     shell('sh tools/build-trna-index.sh {tmpdir} {input.trna} ' \
                           '"{species}" {input.twobit} {output}')

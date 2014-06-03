@@ -27,14 +27,16 @@ for genome in GENOMES:
     if genome not in SPLIT_REPEAT_MASKER_FILES_IN_UCSC:
         rule:
             output: 'downloaded/{genome}/rmsk.txt.gz'.format(genome=genome)
+            params: genome=genome
             run:
-                URL = REPEATMASKER_FULL_URL.format(genome=genome)
+                URL = REPEATMASKER_FULL_URL.format(genome=params.genome)
                 shell('wget -O {output} {URL}')
     else:
         rule:
             output: 'downloaded/{genome}/{{chrom}}_rmsk.txt.gz'.format(genome=genome)
+            params: genome=genome
             run:
-                URL = REPEATMASKER_SPLIT_URL.format(genome=genome, chrom=wildcards.chrom)
+                URL = REPEATMASKER_SPLIT_URL.format(genome=params.genome, chrom=wildcards.chrom)
                 shell('wget -O {output} {URL}')
 
         rule:

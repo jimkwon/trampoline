@@ -31,16 +31,18 @@ include: 'workflows/snakesupport.py'
 
 REPEATMASKER_IGNORE_CLASSES = 'tRNA snRNA scRNA srpRNA'.split()
 
-GENOMES = ['mm10', 'hg19', 'danRer7', 'dm3']
+GENOMES = ['mm10', 'hg19', 'hg38', 'danRer7', 'dm3']
 GENOME2SPECIES = {
     'mm10':     'Mus musculus',
     'hg19':     'Homo sapiens',
+    'hg38':     'Homo sapiens',
     'danRer7':  'Danio rerio',
     'dm3':      'Drosophila melanogaster',
 }
 GENOME2SPECIES_SHORT = {
     'mm10': 'mmu',
     'hg19': 'hsa',
+    'hg38': 'hsa',
     'danRer7': 'dre',
     'dm3': 'dme',
 }
@@ -50,7 +52,7 @@ SUBDIRS = ['downloaded', 'tmp']
 # Genome-specific data availability
 #
 NO_KNOWNGENE_AVAILABLE = ['danRer7', 'dm3']
-NO_TRNA_IN_UCSC = ['dm3']
+NO_TRNA_IN_UCSC = ['dm3', 'hg38']
 SPLIT_REPEAT_MASKER_FILES_IN_UCSC = ['dm3']
 CHROMOSOMES = { # for downloading data which are broken into per-chromosome files.
     'dm3': """chr2L chr2LHet chr2R chr2RHet chr3L chr3LHet chr3R chr3RHet
@@ -82,7 +84,7 @@ RDNA_GENBANK_URLS = {
 # create directories when missing
 for genome in GENOMES:
     for subdir in SUBDIRS:
-        dirpath = os.path.join(genome, subdir)
+        dirpath = os.path.join(subdir, genome)
         if not os.path.isdir(dirpath):
             os.makedirs(dirpath)
 

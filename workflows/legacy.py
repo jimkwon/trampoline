@@ -44,7 +44,7 @@ rule download_rDNA:
 
 rule rfam_contaminants_seq_names:
     input: 'downloaded/Rfam.fasta.gz'
-    output: '{genome}/tmp/Rfam-contaminants-names'
+    output: 'tmp/{genome}/Rfam-contaminants-names'
     run:
         species = GENOME2SPECIES[wildcards.genome]
         shell("zgrep '^>.*rRNA.*{species}' {input} | sed -e 's,^>\([^ ]*\).*,\\1,g' > {output}")
@@ -95,7 +95,7 @@ rule build_gsnap_genome_index:
     input: '{genome}/genome.fa'
     output: '{genome}/genome/genome.genomecomp'
     threads: 100 # never run multiple builds
-    shell: 'gmap_build -T {wildcards.genome}/downloaded -D {wildcards.genome} \
+    shell: 'gmap_build -T tmp/{wildcards.genome} -D {wildcards.genome} \
                 -d genome -k 12 -b 12 -q 1 {input}'
 
 rule download_refgene:
