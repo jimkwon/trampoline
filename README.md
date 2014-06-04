@@ -1,8 +1,8 @@
 Trampoline
 ==========
 
-Trampoline is a set of scripts that generates ready-to-use data
-files for general transcript-wide researches.
+Trampoline is a set of scripts that generates ready-to-use reference and
+annotation data files for general transcript-wide researches.
 
 
 ![Logo image](https://raw.githubusercontent.com/hyeshik/trampoline/master/doc/trampoline.png)   
@@ -85,9 +85,13 @@ Supported genomes
 * Human
   - UCSC hg19
   - UCSC hg38
-* Mouse
+* Mouse *(M. musculus)*
   - UCSC mm10
-* Zebrafish
+* Rat *(R. norvegicus)*
+  - UCSC rn5
+* Pig *(S. scrofa)*
+  - UCSC susScr3
+* Zebrafish *(D. rerio)*
   - UCSC danRer7
 * Fruitfly *(D. melanogaster)*
   - UCSC dm3

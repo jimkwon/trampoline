@@ -31,13 +31,14 @@ include: 'workflows/snakesupport.py'
 
 REPEATMASKER_IGNORE_CLASSES = 'tRNA snRNA scRNA srpRNA'.split()
 
-GENOMES = ['mm10', 'hg19', 'hg38', 'danRer7', 'dm3']
+GENOMES = ['mm10', 'hg19', 'hg38', 'danRer7', 'dm3', 'rn5']
 GENOME2SPECIES = {
     'mm10':     'Mus musculus',
     'hg19':     'Homo sapiens',
     'hg38':     'Homo sapiens',
     'danRer7':  'Danio rerio',
     'dm3':      'Drosophila melanogaster',
+    'rn5':      'Rattus norvegicus',
 }
 GENOME2SPECIES_SHORT = {
     'mm10': 'mmu',
@@ -45,14 +46,15 @@ GENOME2SPECIES_SHORT = {
     'hg38': 'hsa',
     'danRer7': 'dre',
     'dm3': 'dme',
+    'rn5': 'rno',
 }
 SUBDIRS = ['downloaded', 'tmp']
 
 #
 # Genome-specific data availability
 #
-NO_KNOWNGENE_AVAILABLE = ['danRer7', 'dm3']
-NO_TRNA_IN_UCSC = ['dm3', 'hg38']
+NO_KNOWNGENE_AVAILABLE = ['danRer7', 'dm3', 'rn5']
+NO_TRNA_IN_UCSC = ['dm3', 'hg38', 'rn5']
 SPLIT_REPEAT_MASKER_FILES_IN_UCSC = ['dm3']
 CHROMOSOMES = { # for downloading data which are broken into per-chromosome files.
     'dm3': """chr2L chr2LHet chr2R chr2RHet chr3L chr3LHet chr3R chr3RHet
@@ -79,6 +81,7 @@ RDNA_GENBANK_URLS = {
     'Homo sapiens': GENBANK_EFETCH_URL.format(gi=555853),
     'Danio rerio': GENBANK_EFETCH_URL.format(gi=148614872), # no full rDNA repreat is available
     'Drosophila melanogaster': GENBANK_EFETCH_URL.format(gi=158246),
+    'Rattus norvegicus': GENBANK_EFETCH_URL.format(gi=2624399), # not containing ETS and IGS
 }
 
 # create directories when missing
