@@ -2,7 +2,7 @@ Trampoline
 ==========
 
 Trampoline is a set of scripts that generates ready-to-use reference and
-annotation data files for general transcript-wide researches.
+annotation data files for general transcriptome-wide researches.
 
 
 ![Logo image](https://raw.githubusercontent.com/hyeshik/trampoline/master/doc/trampoline.png)   
