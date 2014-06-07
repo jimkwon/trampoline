@@ -35,7 +35,7 @@ Batch processing | Online or real-time processing
 Non-redundant RefSeq subset
 ---------------------------
 
-Transcriptome uses a subset of NCBI RefSeq transcripts, called
+Trampoline uses a subset of NCBI RefSeq transcripts, called
 "non-redundant RefSeq", by filtering out any shorter transcripts
 overlapped to longer one in the genome coordinate space. Subsequent
 analyses become much easier with the nrRefSeq set. Various structured
